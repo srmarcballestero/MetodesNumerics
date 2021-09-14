@@ -1,6 +1,7 @@
 /* harmonica.c */
-/* calcula terme a terme el valor de les sumes parcials de la sèrie harmonica
-   i s'atura quan s_n-1 = s_n
+/*
+  Calcula terme a terme el valor de les sumes parcials de la sèrie harmonica
+  i s'atura quan s_n-1 = s_n
 */
 
 #include <stdio.h>
