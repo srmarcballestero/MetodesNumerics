@@ -1,6 +1,6 @@
 /* harmonica.c */
 /*
-  MARC BALLESTERO RIBO (M1b) - NIUB20151261
+  MARC BALLESTERO RIBO (M1b)
 
   Calcula terme a terme el valor de les sumes parcials de la sèrie harmonica
   i s'atura quan s_n-1 = s_n
