@@ -28,9 +28,8 @@ int main(void) {
 
   /* Suma en ordre DECREIXENT */
   sn = 0.;
-  for (j = n; j > 0; --j) {
+  for (j = n; j > 0; --j)
     sn += 1. / (float) j;
-  }
 
   printf("--- Suma en ordre DECREIXENT ---\n");
   printf("\ts_%d = %+.20e\n\n", n, sn);

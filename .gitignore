@@ -44,3 +44,7 @@
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
+
+# Data
+*.dat
+*.csv
