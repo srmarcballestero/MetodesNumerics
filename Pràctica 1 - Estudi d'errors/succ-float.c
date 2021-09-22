@@ -12,7 +12,7 @@
 #define FLOAT_ERR 1.19e-7
 
 int main(void) {
-  float a = 6.2, b = .5;
+  float a = 6.2, b = -.5;
   float xn, xn1 = .01, dxn, dxn1 = .01*FLOAT_ERR;
   int n;
 

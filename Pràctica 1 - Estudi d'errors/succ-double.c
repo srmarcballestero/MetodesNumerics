@@ -12,7 +12,7 @@
 #define DOUBLE_ERR 2.22e-16
 
 int main(void) {
-  double a = 6.2, b = .5;
+  double a = 6.2, b = -.5;
   double xn, xn1 = .01, dxn, dxn1 = .01*DOUBLE_ERR;
   int n;
 
