@@ -1,6 +1,9 @@
 /* func.c */
 /*
   MARC BALLESTERO RIBO (M1b)
+
+  Calcula una taula de valors per la funcio proposada i la desa en un fitxer
+  .csv
 */
 
 #include <stdio.h>
