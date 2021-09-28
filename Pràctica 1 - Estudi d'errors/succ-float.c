@@ -11,6 +11,10 @@
 
 #define FLOAT_ERR 1.19e-7
 
+
+float expf(float);
+
+
 int main(void) {
   float a = 6.2, b = -.5;
   float xn, xn1 = .01, dxn, dxn1 = xn1*FLOAT_ERR;
@@ -30,18 +34,18 @@ int main(void) {
 /*
   RESPOSTES A LES PREGUNTES
     (a) Obtenim els valors
-          float:  x_40 = -2.14(16)e-1
-          double: x_40 = -1.89063797247(18)e-1
+          float:  x_40 = +5.5(1.0)e-2
+          double: x_40 = -3.307706118(2)e-2
         que no son compatibles, i difereixen absolutament en aproximadament
-        0.025.
+        0.022.
     (b) Incloem en els programes la propagacio de l'error en x_{n+1}, partint
         dels errors inicials que es diuen en l'enunciat.
         Observem que, d'una banda, el valor obtingut amb el tipus double es
         mes proper a zero, i de l'altra, l'error absolut que te es molt inferior
         al que s'obte amb el tipus float. De fet, els errors relatius en les
         dades son
-          float:  dx_40/x_40 = 7.4%
-          double: dx_40/x_40 = 0.00000001%
+          float:  dx_40/x_40 = 18%
+          double: dx_40/x_40 = 0.00000006%
         amb la qual cosa, concloem que la precisio dels calculs amb el tipus
         double es molt superior a la del tipus float.
 */
