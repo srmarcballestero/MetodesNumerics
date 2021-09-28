@@ -18,7 +18,7 @@ int main(void) {
 
   for (n = 0; n <= 40; ++n) {
     printf("x_%d = %+.20e\t+-\t%+.20e\n", n, xn1, dxn1);
-    xn = exp(-a*pow(xn1, 2)) + b;
+    xn = expf(-a*pow(xn1, 2)) + b;
     dxn = 2.*a*fabs(xn1)*exp(-a*pow(xn1, 2)) * dxn1;
     xn1 = xn, dxn1 = dxn;
   }
