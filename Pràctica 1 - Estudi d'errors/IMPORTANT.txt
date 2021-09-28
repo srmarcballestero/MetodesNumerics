@@ -1,0 +1,7 @@
+Les respostes a les preguntes es troben en els comentaris dels diversos
+fitxers de codi. Les referències són
+
+  Exercici 1 -> harmonica.c
+  Exercici 2 -> func.c (veure tambe fitxers grafica1.png, grafica2.png i func.csv)
+  Exercici 3 -> succ-float.c
+  

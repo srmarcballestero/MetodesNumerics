@@ -1,11 +1,6 @@
 /* func.c */
 /*
   MARC BALLESTERO RIBO (M1b)
-
-  Calcula terme a terme el valor de les sumes parcials de la sèrie harmonica
-  i s'atura quan s_n-1 = s_n
-  Posteriorment, calcula l'ultima suma parcial sumant els termes en ordre invers
-  i compara els resultats.
 */
 
 #include <stdio.h>
@@ -43,9 +38,10 @@ int main(void) {
         x=0 i en ordre 4, amb la qual cosa, tenim que
           f(x) = (cosx - 1)/x^2 ~ -1/2 + x^2/24 + o(x^4)/x^2 =>
           f(x) ~ -1/2 + x^2/24, per x a prop de 0.
-        Amb aixo, l'error de f(x) calculada per aquest metode es
-          df(x) = |x|/12 * dx
-        on dx es l'error en x.
+        Amb aixo, l'error de f(x) calculada per aquest metode es la resta de
+        Lagrange
+          df(x) = cos(s)/6!*x^2
+        on s esta entre x i 0.
         Construim l'algorisme prenent com a punt d'inici x_i = -0.001, i en
         cada iteracio incrementem aquest valor en 1e-6. Amb aixo, tenim que
         representem x amb una precisio de 1e-6, per la qual cosa,
@@ -54,5 +50,5 @@ int main(void) {
     (c) Si representem ambdues funcions (grafica2.png), notem que la calcualda
         per l'algorisme presentat es correspon amb el comportament esperat.
         Observant la grafica, estimem l'error del calcul de l'apartat (a) de
-        l'ordre de 5e-6.      
+        l'ordre de 5e-6.
   */

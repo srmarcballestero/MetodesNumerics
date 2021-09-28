@@ -13,13 +13,13 @@
 
 int main(void) {
   double a = 6.2, b = -.5;
-  double xn, xn1 = .01, dxn, dxn1 = .01*DOUBLE_ERR;
+  double xn, xn1 = .01, dxn, dxn1 = xn1*DOUBLE_ERR;
   int n;
 
   for (n = 0; n <= 40; ++n) {
     printf("x_%d = %+.20e\t+-\t%+.20e\n", n, xn1, dxn1);
     xn = exp(-a*pow(xn1, 2)) + b;
-    dxn = 2*a*xn*exp(-a*pow(xn, 2)) * dxn1;
+    dxn = 2.*a*fabs(xn1)*exp(-a*pow(xn1, 2)) * dxn1;
     xn1 = xn, dxn1 = dxn;
   }
 
