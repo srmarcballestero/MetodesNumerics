@@ -39,16 +39,16 @@ int main(void) {
         presenta un error molt significatiu.
     (b) Primer de tot, desenvolupem en serie de Taylor cosx al voltant de
         x=0 i en ordre 4, amb la qual cosa, tenim que
-          f(x) = (cosx - 1)/x^2 ~ -1/2 + x^2/24 + o(x^4)/x^2 =>
+          f(x) = (cosx - 1)/x^2 ~ -1/2 + x^2/24 + o(x^6)/x^2 =>
           f(x) ~ -1/2 + x^2/24, per x a prop de 0.
         Amb aixo, l'error de f(x) calculada per aquest metode es la resta de
         Lagrange
-          df(x) = cos(s)/6!*x^2
+          df(x) = cos(s)/6!*x^4
         on s esta entre x i 0.
-        Construim l'algorisme prenent com a punt d'inici x_i = -0.001, i en
-        cada iteracio incrementem aquest valor en 1e-6. Amb aixo, tenim que
-        representem x amb una precisio de 1e-6, per la qual cosa,
-          df(x) ~ 1e-12
+        Tenim que com mes ens allunyem del 0 mes gran sera l'error en el calcul
+        de la funcio, i sera maxim en els extrems de l'interval [-1.e-3, 1.e-3].
+        Amb aixo, trobem que la cota de l'error en f(x) es de l'ordre
+          df(x) ~ (1.e-3)^4 ~ 1.e-12
         que ja es l'error desitjat.
     (c) Si representem ambdues funcions (grafica2.png), notem que la calcualda
         per l'algorisme presentat es correspon amb el comportament esperat.
