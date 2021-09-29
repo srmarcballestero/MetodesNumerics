@@ -31,12 +31,7 @@ int main(void) {
   RESPOSTES A LES PREGUNTES
     (a) No, la grafica (grafica1.png) presenta irregularitats i punts angulosos
         que no es corresponen amb la monotonia, continuitat i diferenciabilitat
-        de la funcio que es demana representar. Aixo es deu al fet que, d'una
-        banda, en la resta del numerador el nombre resultant es molt proper
-        a 0 i per tant hi ha un augment notable de l'error relatiu, i de
-        l'altra, que al dividir en el denominador per un nombre tambe molt
-        proper a 0, es dispara l'error absolut, conduint a una grafica que
-        presenta un error molt significatiu.
+        de la funcio que es demana representar.
     (b) Primer de tot, desenvolupem en serie de Taylor cosx al voltant de
         x=0 i en ordre 4, amb la qual cosa, tenim que
           f(x) = (cosx - 1)/x^2 ~ -1/2 + x^2/24 + o(x^6)/x^2 =>
@@ -52,6 +47,9 @@ int main(void) {
         que ja es l'error desitjat.
     (c) Si representem ambdues funcions (grafica2.png), notem que la calcualda
         per l'algorisme presentat es correspon amb el comportament esperat.
-        Observant la grafica, estimem l'error del calcul de l'apartat (a) de
-        l'ordre de 5e-6.
+        L'error de la grafica de l'apartat (a) prove del fet que, en la resta
+        del numerador el nombre resultant es molt proper a 0 i per tant hi ha
+        un augment notable de l'error relatiu, i de l'altra, que al dividir en
+        el denominador per un nombre tambe molt proper a 0, es dispara l'error
+        absolut, conduint a una grafica que presenta un error molt significatiu.        
   */
