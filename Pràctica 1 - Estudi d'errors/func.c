@@ -11,7 +11,7 @@
 
 
 int main(void) {
-  double inici = -1.e-3, final = 1.e-3, pas = 1.e-6;
+  double inici = -1.e-3, final = 1.e-3, pas = 1.e-4;
   double x, f;
   FILE *fout;
 
