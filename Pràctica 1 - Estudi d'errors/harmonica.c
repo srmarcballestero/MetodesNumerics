@@ -24,7 +24,7 @@ int main(void) {
 
   printf("--- Suma en ordre CREIXENT ---\n");
   printf("\tPrograma aturat després de %d iteracions.\n", n);
-  printf("\ts_%d = %+.20e\n\ts_%d = %+.20e\n\n", n-1, sn1, n, sn);
+  printf("\ts_%d = %+.8e\n\ts_%d = %+.8e\n\n", n-1, sn1, n, sn);
 
   /* Suma en ordre DECREIXENT */
   sn = 0.;
@@ -32,7 +32,7 @@ int main(void) {
     sn += 1. / (float) j;
 
   printf("--- Suma en ordre DECREIXENT ---\n");
-  printf("\ts_%d = %+.20e\n\n", n, sn);
+  printf("\ts_%d = %+.8e\n\n", n, sn);
 
   printf("Diferència absoluta entre les sumes: %+.20e\n", fabs(sn-sn1));
 

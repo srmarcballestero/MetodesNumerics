@@ -51,5 +51,5 @@ int main(void) {
         del numerador el nombre resultant es molt proper a 0 i per tant hi ha
         un augment notable de l'error relatiu, i de l'altra, que al dividir en
         el denominador per un nombre tambe molt proper a 0, es dispara l'error
-        absolut, conduint a una grafica que presenta un error molt significatiu.        
+        absolut, conduint a una grafica que presenta un error molt significatiu.
   */
