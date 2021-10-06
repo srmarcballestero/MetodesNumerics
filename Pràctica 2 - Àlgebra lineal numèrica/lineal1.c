@@ -11,6 +11,7 @@
 
 
 void solLu(int, double **, double *, double *);
+double plupmc(int, double **, int * , double);
 
 
 int main(void) {
@@ -20,7 +21,11 @@ int main(void) {
   double rtemp, normS, normMax = INT_MIN;
   FILE *fin;
 
-  fin = fopen("matriu.in", "r");
+  fin = fopen("sis1.data", "r");
+  if (fin == NULL) {
+    perror("Error obrint el fitxer d'entrada!\n");
+    exit(1);
+  }
 
   fscanf(fin, "%d", &n);
   fscanf(fin, "%d %d", &na, &nb);
@@ -34,8 +39,8 @@ int main(void) {
   x = (double *) calloc(n, sizeof(double));
 
   if (A == NULL || b == NULL || x == NULL) {
-    printf("Error de memoria!\n");
-    return -1;
+    perror("Error de memoria!\n");
+    exit(1);
   }
 
 
@@ -51,7 +56,6 @@ int main(void) {
 
   fclose(fin);
 
-  /*
   for (i = 0; i < n; ++i) {
     for (j = 0; j < n; ++j)
       printf("%f ", A[i][j]);
@@ -60,19 +64,19 @@ int main(void) {
 
   for (j = 0; j < n; ++j)
     printf("%f ", b[j]);
-  */
+  printf("\n");
 
   /* Normes sub-infinit de A i b */
   printf("Normes sub-infinit de la matriu i el vector\n");
 
-  for (i = 0; i < n; ++i) {
+  for (j = 0; j < n; ++j) {
     normS = 0.;
-    for (j = 0; j < n; ++j)
+    for (i = 0; i < n; ++j)
       normS += A[i][j];
     if (normS > normMax)
       normMax = normS;
   }
-  printf("||A|| = %.6e\n", normMax);
+  printf("||A|| = %.0e\n", normMax);
 
   normMax = INT_MIN;
   for (j = 0; j < n; ++j) {
@@ -80,9 +84,12 @@ int main(void) {
     if (normS > normMax)
       normMax = normS;
   }
-  printf("||b|| = %.6e\n", normMax);
+  printf("||b|| = %.0e\n", normMax);
 
   solLu(n, A, b, x);
+  for (k = 0; k < n; ++k)
+    printf("%+.3e ", x[k]);
+  printf("\n");
 
 
   for (k = 0; k < n; ++k)
@@ -98,41 +105,39 @@ int main(void) {
 
 void solLu(int n, double **c, double *b, double *x) {
   int i, j;
-  double y[n], sum;
+  double *y, sum;
+
+  y = (double *) calloc(n, sizeof(double));
+  if (y == NULL) {
+    perror("Error de memoria!\n");
+    exit(1);
+  }
 
   /* Sistema Ly = b */
   y[0] = b[0] / 1.;
   for (i = 1; i < n; ++i) {
     sum = 0.;
     for (j = 0; j < i; ++j) {
-      if (i == j)
-        sum += 1. * y[j];
-      else
-        sum += c[i][j] * y[j];
+      sum += c[i][j] * y[j];
     }
+    sum += 1. * y[i];
     if (i == j)
-      y[j] = (b[i] - sum) / 1.;
+      y[i] = (b[i] - sum) / 1.;
     else
-      y[j] = (b[i] - sum) / c[i][j];
+      y[i] = (b[i] - sum) / c[i][i];
   }
-
-  for (i = 0; i < n; ++i)
-    printf("%.3f ", y[i]);
-  printf("\n");
 
   /* Sistema Ux = y */
   x[n-1] = y[n-1] / c[n-1][n-1];
-  for (i = n-2; i >= 0; --i) {
-    x[i] = y[i];
-    for (j = i+1; j < n; ++j) {
-      x[i] -= c[i][j] * x[j];
+  for (i = n-2; i > -1; --i) {
+    sum = 0.;
+    for (j = i; j < n; ++j) {
+      sum += c[i][j] * x[j];
     }
-    x[i] /= c[i][i];
+    x[i] = (y[i] - sum) / c[i][i];
   }
 
-  for (i = 0; i < n; ++i)
-    printf("%.3f ", x[i]);
-  printf("\n");
+  free(y);
 
   return;
 }
