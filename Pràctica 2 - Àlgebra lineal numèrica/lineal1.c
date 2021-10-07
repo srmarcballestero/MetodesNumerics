@@ -71,7 +71,7 @@ int main(void) {
 
   for (j = 0; j < n; ++j) {
     normS = 0.;
-    for (i = 0; i < n; ++j)
+    for (i = 0; i < n; ++i)
       normS += A[i][j];
     if (normS > normMax)
       normMax = normS;
