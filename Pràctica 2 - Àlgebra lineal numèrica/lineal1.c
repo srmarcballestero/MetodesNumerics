@@ -17,11 +17,12 @@ double plupmc(int, double **, int * , double);
 int main(void) {
   int n, na, nb;
   int i, j, k;
+  int *p;
   double **A, *b, *x;
   double rtemp, normS, normMax = INT_MIN;
   FILE *fin;
 
-  fin = fopen("sis1.data", "r");
+  fin = fopen("matriu.in", "r");
   if (fin == NULL) {
     perror("Error obrint el fitxer d'entrada!\n");
     exit(1);
@@ -38,7 +39,9 @@ int main(void) {
 
   x = (double *) calloc(n, sizeof(double));
 
-  if (A == NULL || b == NULL || x == NULL) {
+  p = (int *) malloc(n * sizeof(int));
+
+  if (A == NULL || b == NULL || x == NULL || p == NULL) {
     perror("Error de memoria!\n");
     exit(1);
   }
@@ -55,6 +58,9 @@ int main(void) {
   }
 
   fclose(fin);
+
+  for (k = 0; k < n; ++k)
+    p[k] = k;
 
   for (i = 0; i < n; ++i) {
     for (j = 0; j < n; ++j)
@@ -91,6 +97,7 @@ int main(void) {
     printf("%+.3e ", x[k]);
   printf("\n");
 
+  plupmc(n, A, p, 0.);
 
   for (k = 0; k < n; ++k)
     free(A[k]);
@@ -98,6 +105,7 @@ int main(void) {
 
   free(b);
   free(x);
+  free(p);
 
   return 0;
 }
@@ -140,4 +148,74 @@ void solLu(int n, double **c, double *b, double *x) {
   free(y);
 
   return;
+}
+
+
+double plupmc(int n, double **c, int *p, double tol) {
+  int i, j, k, pivot_ind = 0, temp_ind;
+  int ii, jj;
+  double pivot = (double) INT_MIN, *temp_row;
+
+  for (j = 0; j < n; ++j) {
+
+    pivot = (double) INT_MIN;
+    for (i = j; i < n; ++i)
+      if (fabs(c[i][j]) > fabs(pivot)) {
+        pivot = c[i][j];
+        pivot_ind = i;
+      }
+
+    temp_row = c[0];
+    c[0] = c[pivot_ind];
+    c[pivot_ind] = temp_row;
+
+    temp_ind  = p[0];
+    p[0] = p[pivot_ind];
+    p[pivot_ind] = temp_ind;
+
+    printf("Pas %d\n", j);
+    for (ii = 0; ii < n; ++ii) {
+      for (jj = 0; jj < n; ++jj)
+        printf("%f ", c[ii][jj]);
+      printf("\n");
+    }
+    printf("\n");
+
+    for (k = j+1; k < n; ++k) {
+      c[k][j] /= c[j][j];
+      c[k][k] -= c[k][j]*c[j][k];
+    }
+
+  }
+
+  for (i = 0; i < n; ++i) {
+    for (j = 0; j < n; ++j) {
+      if (i>j)
+        printf("%f ", c[i][j]);
+      else if (i==j)
+        printf("%f ", 1.);
+      else
+        printf("%f ", 0.);
+    }
+    printf("\n");
+  }
+
+  printf("\n");
+
+  for (i = 0; i < n; ++i) {
+    for (j = 0; j < n; ++j) {
+      if (i>j)
+        printf("%f ", 0.);
+      else
+        printf("%f ", c[i][j]);
+
+    }
+    printf("\n");
+  }
+
+  for (i = 0; i < n; ++i)
+    printf("%d ", p[i]);
+  printf("\n");
+
+  return 0.;
 }
