@@ -1,45 +1,46 @@
-/* lineal1.c */
+/* lineal2.c */
 /*
   MARC BALLESTERO RIBO (M1b)
 */
 
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include "lineal.h"
 
 
 int main(void) {
   int n, na, nb;
   int i, j, k;
-  double **A, *b;
+  int *p;
+  double **A, *b, *x;
   double rtemp, normS, normMax = 0.;
-  FILE *fin;
+  double det, tol;
+  FILE *fin, *fout;
 
-  /* Obertura del fitxer d'entrada */
   fin = fopen("matriu.in", "r");
   if (fin == NULL) {
     perror("Error obrint el fitxer d'entrada!\n");
     exit(1);
   }
 
-  /* Lectura de les dimensions */
   fscanf(fin, "%d", &n);
   fscanf(fin, "%d %d", &na, &nb);
 
-  /* Reserva de memoria dinamica */
   A = (double **) calloc(n, sizeof(double*));
   for (k = 0; k < n; ++k)
     A[k] = (double *) calloc(n, sizeof(double));
 
   b = (double *) calloc(n, sizeof(double));
 
-  if (A == NULL || b == NULL) {
+  x = (double *) calloc(n, sizeof(double));
+
+  p = (int *) malloc(n * sizeof(int));
+
+  if (A == NULL || b == NULL || x == NULL || p == NULL) {
     perror("Error de memoria!\n");
     exit(1);
   }
 
-  /* Lectura de la matriu i el vector */
+
   for (k = 0; k < na; ++k) {
     fscanf(fin, "%d %d %lf", &i, &j, &rtemp);
     A[i][j] = rtemp;
@@ -52,16 +53,38 @@ int main(void) {
 
   fclose(fin);
 
-  /* Imprimim per pantalla A i b */
-  /*for (i = 0; i < n; ++i) {
-    for (j = 0; j < n; ++j)
-      printf("%+2.0f ", A[i][j]);
-    printf("\n");
+  for (k = 0; k < n; ++k)
+    p[k] = k;
+
+
+  /* Resolucio del sistema Ax = b */
+  fout = fopen("sis1.res", "w");
+  if (fout == NULL) {
+    perror("Error obrint el fitxer de sortida!\n");
+    exit(1);
   }
 
-  for (j = 0; j < n; ++j)
-    printf("%f ", b[j]);
-  printf("\n");*/
+
+  scanf("Tolerancia per a la descomposicio LU = %lf", &tol);
+  det = plupmc(n, A, p, tol);
+  fprintf(fout, "det(A) = %+.6e", det);
+
+  j = 0;
+  for (i = 0; i < n; ++i) {
+    j = p[i];
+    while (j < i)
+      j = p[j];
+    rtemp = b[i];
+    b[i] = b[j];
+    b[j] = rtemp;
+  }
+
+  solLu(n, A, b, x);
+  for (k = 0; k < n; ++k)
+    printf("%+.3e ", x[k]);
+  printf("\n");
+
+  fclose(fout);
 
   /* Normes sub-infinit de A i b */
   printf("Normes sub-infinit de la matriu i el vector\n");
@@ -73,7 +96,7 @@ int main(void) {
     if (normS > normMax)
       normMax = normS;
   }
-  printf("||A|| = %+.6e\n", normMax);
+  printf("||A|| = %.0e\n", normMax);
 
   normMax = 0.;
   for (j = 0; j < n; ++j) {
@@ -81,15 +104,16 @@ int main(void) {
     if (normS > normMax)
       normMax = normS;
   }
-  printf("||b|| = %+-6e\n", normMax);
+  printf("||b|| = %.0e\n", normMax);
 
 
-  /* Alliberament de la memoria dinamica */
   for (k = 0; k < n; ++k)
     free(A[k]);
   free(A);
 
   free(b);
+  free(x);
+  free(p);
 
   return 0;
 }

@@ -32,9 +32,5 @@ double plupmc(int n, double **c, int *p, double tol) {
   for (i = 0; i < n; ++i)
     det *= c[i][i];
 
-  for (i = 0; i < n; ++i)
-    printf("%d ", p[i]);
-  printf("\n");
-
   return det;
 }
