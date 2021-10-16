@@ -1,3 +1,9 @@
+/* plupmc.c */
+/*
+  MARC BALLESTERO RIBO (M1b)
+*/
+
+
 #include "lineal.h"
 
 double plupmc(int n, double **c, int *p, double tol) {

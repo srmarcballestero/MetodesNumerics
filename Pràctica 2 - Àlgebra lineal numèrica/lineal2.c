@@ -11,12 +11,12 @@ int main(void) {
   int n, na, nb;
   int i, j, k;
   int *p;
-  double **A, *b, *x;
+  double **A, *b, *x, *d;
   double rtemp, normS, normMax = 0.;
   double det, tol;
   FILE *fin, *fout;
 
-  fin = fopen("matriu.in", "r");
+  fin = fopen("sis1.data", "r");
   if (fin == NULL) {
     perror("Error obrint el fitxer d'entrada!\n");
     exit(1);
@@ -33,9 +33,11 @@ int main(void) {
 
   x = (double *) calloc(n, sizeof(double));
 
+  d = (double *) calloc(n, sizeof(double));
+
   p = (int *) malloc(n * sizeof(int));
 
-  if (A == NULL || b == NULL || x == NULL || p == NULL) {
+  if (A == NULL || b == NULL || x == NULL || p == NULL || d == NULL) {
     perror("Error de memoria!\n");
     exit(1);
   }
@@ -51,8 +53,8 @@ int main(void) {
     b[j] = rtemp;
   }
 
-  fclose(fin);
 
+  /* Vector de permutacio de files */
   for (k = 0; k < n; ++k)
     p[k] = k;
 
@@ -64,11 +66,13 @@ int main(void) {
     exit(1);
   }
 
-
-  scanf("Tolerancia per a la descomposicio LU = %lf", &tol);
+  /* Calcul de la descomposcio PA = LU i det(A) */
+  printf("Tolerancia per a la descomposicio LU = ");
+  scanf("%lf", &tol);
   det = plupmc(n, A, p, tol);
-  fprintf(fout, "det(A) = %+.6e", det);
+  fprintf(fout, "det(A) = %+.6e\n", det);
 
+  /* Apliquem la permutacio P al vector de termes independents */
   j = 0;
   for (i = 0; i < n; ++i) {
     j = p[i];
@@ -79,33 +83,50 @@ int main(void) {
     b[j] = rtemp;
   }
 
-  solLu(n, A, b, x);
+  /* Resolem el sistema LU = Pb */
+  fprintf(fout, "Solucio del sistema Ax = b:\n");
+  solLU(n, A, b, x);
   for (k = 0; k < n; ++k)
-    printf("%+.3e ", x[k]);
-  printf("\n");
+    fprintf(fout, "%+.6e ", x[k]);
+  fprintf(fout, "\n");
 
-  fclose(fout);
+  /* Calculem ||Ax-b||_inf */
+  for (i = 0; i < n; ++i) {
+    for (j = 0; j < n; ++j)
+      A[i][j] = 0.;
+    b[i] = 0.;
+  }
 
-  /* Normes sub-infinit de A i b */
-  printf("Normes sub-infinit de la matriu i el vector\n");
+  rewind(fin);
+  fscanf(fin, "%*[^\n]\n");
+  fscanf(fin, "%*[^\n]\n");
+
+  for (k = 0; k < na; ++k) {
+    fscanf(fin, "%d %d %lf", &i, &j, &rtemp);
+    A[i][j] = rtemp;
+  }
+
+  for (k = 0; k < nb; ++k) {
+    fscanf(fin, "%d %lf", &j, &rtemp);
+    b[j] = rtemp;
+  }
 
   for (i = 0; i < n; ++i) {
-    normS = 0.;
     for (j = 0; j < n; ++j)
-      normS += fabs(A[i][j]);
-    if (normS > normMax)
-      normMax = normS;
+      d[i] += A[i][j]*x[j];
+    d[i] -= b[i];
   }
-  printf("||A|| = %.0e\n", normMax);
 
-  normMax = 0.;
   for (j = 0; j < n; ++j) {
-    normS = fabs(b[j]);
+    normS = fabs(d[j]);
     if (normS > normMax)
       normMax = normS;
   }
-  printf("||b|| = %.0e\n", normMax);
 
+  fprintf(fout, "||Ax-b|| = %.6e\n", normMax);
+
+  fclose(fin);
+  fclose(fout);
 
   for (k = 0; k < n; ++k)
     free(A[k]);
@@ -113,6 +134,7 @@ int main(void) {
 
   free(b);
   free(x);
+  free(d);
   free(p);
 
   return 0;

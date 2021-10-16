@@ -1,6 +1,12 @@
+/* solLu.c */
+/*
+  MARC BALLESTERO RIBO (M1b)
+*/
+
+
 #include "lineal.h"
 
-void solLu(int n, double **c, double *b, double *x) {
+void solLU(int n, double **c, double *b, double *x) {
   int i, j;
   double *y, sum;
 
