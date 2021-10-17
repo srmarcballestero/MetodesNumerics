@@ -17,7 +17,7 @@ int main(void) {
   FILE *fin;
 
   /* Obertura del fitxer d'entrada */
-  fin = fopen("matriu.in", "r");
+  fin = fopen("sis1.data", "r");
   if (fin == NULL) {
     perror("Error obrint el fitxer d'entrada!\n");
     exit(1);
@@ -39,6 +39,7 @@ int main(void) {
     exit(1);
   }
 
+
   /* Lectura de la matriu i el vector */
   for (k = 0; k < na; ++k) {
     fscanf(fin, "%d %d %lf", &i, &j, &rtemp);
@@ -53,7 +54,7 @@ int main(void) {
   fclose(fin);
 
   /* Imprimim per pantalla A i b */
-  /*for (i = 0; i < n; ++i) {
+  for (i = 0; i < n; ++i) {
     for (j = 0; j < n; ++j)
       printf("%+2.0f ", A[i][j]);
     printf("\n");
@@ -61,7 +62,7 @@ int main(void) {
 
   for (j = 0; j < n; ++j)
     printf("%f ", b[j]);
-  printf("\n");*/
+  printf("\n");
 
   /* Normes sub-infinit de A i b */
   printf("Normes sub-infinit de la matriu i el vector\n");

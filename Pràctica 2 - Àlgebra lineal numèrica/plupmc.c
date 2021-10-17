@@ -27,7 +27,7 @@ double plupmc(int n, double **c, int *p, double tol) {
     p[pivot_ind] = temp_ind;
 
     for (i= j+1; i < n; ++i) {
-      if (c[j][j] < tol)
+      if (fabs(c[j][j]) < tol)
         return 0.;
       c[i][j] /= c[j][j];
       for (k = j+1; k < n; ++k)
