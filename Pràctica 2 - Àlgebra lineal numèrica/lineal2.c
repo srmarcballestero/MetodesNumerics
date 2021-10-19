@@ -72,6 +72,11 @@ int main(void) {
   det = plupmc(n, A, p, tol);
   fprintf(fout, "det(A) = %+.6e\n", det);
 
+  if (det == 0.) {
+    printf("Matriu singular!\n");
+    exit(1);
+  }
+
   /* Apliquem la permutacio P al vector de termes independents */
   j = 0;
   for (i = 0; i < n; ++i) {
@@ -124,6 +129,11 @@ int main(void) {
   }
 
   fprintf(fout, "||Ax-b|| = %.6e\n", normMax);
+
+  fprintf(fout, "Permutacio p:\n");
+  for (i = 0; i < n; ++i)
+    fprintf(fout, "%d ", p[i]);
+  fprintf(fout, "\n");
 
   fclose(fin);
   fclose(fout);
