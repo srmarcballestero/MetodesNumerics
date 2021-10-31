@@ -1,0 +1,15 @@
+Resposta a l'apartat (4)
+
+Executem el programa amb diversos valors de tol, i observem que, primerament,
+  tol = 1.   ----->  det(A) = 0. (matriu singular)
+  tol = 0.95 ----->  det(A) = -6.040310e+05 i ||Ax-b|| = 2.273737e-13
+Fem proves per trobar una bona aproximacio del valor llindar de tol per a que el
+programa s'executi correctament i resolgui el sistema d'equacions
+  tol = 0.97  ----->  det(A) = -6.040310e+05 i ||Ax-b|| = 2.273737e-13
+  tol = 0.98  ----->  det(A) = 0. (matriu singular)
+  ...
+I acabem estimant que el valor llindar de tol se situa al voltant de
+  tol = 0.973114
+
+En tots els casos en que la matriu es detecta com a no singular, els resultats
+que s'obtenen son identics.
