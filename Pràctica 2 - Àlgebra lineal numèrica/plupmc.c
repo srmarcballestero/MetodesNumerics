@@ -39,7 +39,7 @@ double plupmc(int n, double **c, int *p, double tol) {
   for (i = 0; i < n; ++i)
       for (j = i+1; j < n; ++j)
           if (p[i] > p[j])
-            k++;
+            ++k;
   k %= 2;
 
   for (i = 0; i < n; ++i)
