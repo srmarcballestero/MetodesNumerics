@@ -34,9 +34,6 @@ int main(void) {
 
   interpolacio(x, f, n, c);
 
-  for (i = 0; i < n+1; ++i)
-    printf("%+.3f\n", c[i]);
-  printf("\n");
 
   fout = fopen("runge.res", "w");
   if (fout == NULL) {
@@ -61,9 +58,6 @@ int main(void) {
 
   interpolacio(x, f, n, c);
 
-  for (i = 0; i < n+1; ++i)
-    printf("%+.3f\n", c[i]);
-  printf("\n");
 
   fout = fopen("txevixev.res", "w");
   if (fout == NULL) {
