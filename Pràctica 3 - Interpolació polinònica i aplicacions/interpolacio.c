@@ -24,16 +24,6 @@ int main(void) {
   f = (double *) calloc(n+1, sizeof(double));
   c = (double *) calloc(n+1, sizeof(double));
 
-  /*x[0] = -1;
-  x[1] = 1;
-  x[2] = 2;
-  x[3] = 2.5;
-
-  f[0] = -10;
-  f[1] = 4;
-  f[2] = 0.5;
-  f[3] = -1.25;*/
-
 
   /* Ex. 3: Fenomen de Runge */
 
@@ -48,7 +38,7 @@ int main(void) {
     printf("%+.3f\n", c[i]);
   printf("\n");
 
-  fout = fopen("txevixev.res", "w");
+  fout = fopen("runge.res", "w");
   if (fout == NULL) {
     printf("Error obrint el fitxer de sortida!\n");
     exit(-1);
@@ -75,7 +65,7 @@ int main(void) {
     printf("%+.3f\n", c[i]);
   printf("\n");
 
-  fout = fopen("runge.res", "w");
+  fout = fopen("txevixev.res", "w");
   if (fout == NULL) {
     printf("Error obrint el fitxer de sortida!\n");
     exit(-1);
