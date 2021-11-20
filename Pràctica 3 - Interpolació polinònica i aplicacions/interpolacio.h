@@ -1,4 +1,4 @@
-/* interpolacio.h*/
+/* interpolacio.h */
 /*
   MARC BALLESTERO RIBO (M1b)
 */
