@@ -52,7 +52,7 @@ int main(void) {
 /*
   RESPOSTES A LES PREGUNTES
     (3) Veure fitxers "runge-equi.res" i "runge-equi.png".
-    (4) Veure fitxers "runge-txebi.res" i "runge-txebi.res". En tots dos casos,
+    (4) Veure fitxers "runge-txebi.res" i "runge-txebi.png". En tots dos casos,
         els polinomis calculats interpolen la funcio proposada en els punts
         corresponents. Si mes no, observem que en el cas de l'interpolacio
         en les abscisses de Txevixev, el polinomi s'aproxima millor a la corba
