@@ -14,7 +14,12 @@ int main(void) {
 
   fout = fopen("primitiva2.res", "w");
 
-  h = (b-a) / m;
+  if (fout == NULL) {
+    printf("Error obrint el fitxer de sortida!\n");
+    return 1;
+  }
+
+  h = fabs(b-a) / m;
 
   for (i = 0; i < m+1; ++i) {
     x = a + i*h;
@@ -33,8 +38,4 @@ int main(void) {
   fclose(fout);
 
   return 0;
-}
-
-double f(double x) {
-  return .5 - sin(x*x);
 }
