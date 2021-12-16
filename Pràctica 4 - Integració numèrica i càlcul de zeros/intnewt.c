@@ -8,7 +8,7 @@
 
 
 int main(void) {
-  int j = 1, jmax, imax = 30;
+  int j = 0, jmax, imax = 30;
   double a, z, z1, fz = 0., tol;
 
   printf("a = ");
@@ -33,12 +33,13 @@ int main(void) {
     if (!duptrap(0., z, tol, &imax, &fz)) {
       z -= fz / f(z);
       imax = 30;
+      ++j;
     }
     else {
       printf("Error en la integracio!\n");
       return 1;
     }
-    ++j;
+
   } while (fabs(z-z1) >= tol || fabs(fz) >= tol);
 
   printf("Zero trobat: %.12e\n", z);
